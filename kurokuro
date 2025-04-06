@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pracani</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #fefefe;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      width: 1490px;
+      height: 250px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+    }
+
+    .video {
+      width: 180px;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateX(-100%) translateY(-50%);
+      animation: moveAcross .9s linear forwards;
+      border-radius: 12px;
+    }
+
+    @keyframes moveAcross {
+      0% {
+        transform: translateX(-100%) translateY(-50%);
+      }
+      100% {
+        transform: translateX(1600px) translateY(-50%);
+      }
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      background-color: #4f46e5;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #4338ca;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+
+  <button onclick="launchMedia()">KURU-KURU</button>
+
+  <div class="container" id="mediaContainer"></div>
+
+  <script>
+    function launchMedia() {
+      const audioSources = [
+        "kuroring.mp3",
+        "kurokuro.mp3"
+      ];
+
+      const videoSource = "fullkuroring.mp4";
+      const selectedAudioSrc = audioSources[Math.floor(Math.random() * audioSources.length)];
+      const audio = document.createElement('audio');
+      audio.src = selectedAudioSrc;
+      audio.autoplay = true;
+      audio.loop = false;
+      audio.controls = false;
+      audio.muted = false;
+      document.body.appendChild(audio);
+      const video = document.createElement('video');
+      video.src = videoSource;
+      video.className = 'video';
+      video.autoplay = true;
+      video.loop = true;
+      video.controls = false;
+      video.muted = true;
+      video.playsInline = true;
+      const container = document.getElementById('mediaContainer');
+      container.appendChild(video);
+      video.play();
+      audio.play();
+      setTimeout(() => {
+        video.remove();
+      }, 6000);
+    }
+  </script>
+</body>
+</html>
